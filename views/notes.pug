@@ -1,0 +1,90 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title NOTES
+    link(href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="/notes.css")
+
+  body
+    button#home-button(onclick="window.location.href='/homepage'")
+      img.homelogo-image(src="homebutton.png")
+
+
+    .navi NOTES
+
+    #bars
+
+    button.new-button +
+
+    .overlay-background
+    .overlay
+      h2 New Note
+      input(type="text", id="note-title", placeholder="Title")
+      textarea(id="note-content", placeholder="Write your note here...")
+      .overlay-buttons
+        button.save-button Save
+        button#cancel-button Cancel
+
+    script.
+      const overlay = document.querySelector(".overlay");
+      const background = document.querySelector(".overlay-background");
+      const addButton = document.querySelector(".new-button");
+      const cancelButton = document.querySelector("#cancel-button");
+      const saveButton = document.querySelector(".save-button");
+      const barsContainer = document.getElementById("bars");
+
+      function saveNotesToLocalStorage() {
+        const notes = [];
+        document.querySelectorAll(".bar").forEach(bar => {
+          const title = bar.querySelector(".title").innerText;
+          const content = bar.querySelector(".paragraph").innerText;
+          notes.push({ title, content });
+        });
+        localStorage.setItem("myNotes", JSON.stringify(notes));
+      }
+
+      function loadNotesFromLocalStorage() {
+        const storedNotes = JSON.parse(localStorage.getItem("myNotes")) || [];
+        storedNotes.forEach(note => createNote(note.title, note.content));
+      }
+
+      function createNote(title, content) {
+        const div = document.createElement("div");
+        div.className = "bar";
+        div.innerHTML = `
+          <h1 class="title">${title}</h1>
+          <p class="paragraph">${content}</p>
+          <button class="delete">Delete</button>
+        `;
+        div.querySelector(".delete").addEventListener("click", () => {
+          div.remove();
+          saveNotesToLocalStorage();
+        });
+        barsContainer.appendChild(div);
+      }
+
+      addButton.addEventListener("click", () => {
+        overlay.style.display = "block";
+        background.style.display = "block";
+      });
+
+      cancelButton.addEventListener("click", () => {
+        overlay.style.display = "none";
+        background.style.display = "none";
+      });
+
+      saveButton.addEventListener("click", () => {
+        const title = document.getElementById("note-title").value.trim();
+        const content = document.getElementById("note-content").value.trim();
+        if (!title || !content) return;
+        createNote(title, content);
+        saveNotesToLocalStorage();
+        document.getElementById("note-title").value = "";
+        document.getElementById("note-content").value = "";
+        overlay.style.display = "none";
+        background.style.display = "none";
+      });
+
+      window.addEventListener("DOMContentLoaded", loadNotesFromLocalStorage);

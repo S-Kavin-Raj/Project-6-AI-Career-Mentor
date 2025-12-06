@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-image: url("background-for-timetracker.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #f3e8ff;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes enhancedPulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.5),
+      0 0 45px rgba(168, 85, 247, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.5),
+      0 0 60px rgba(168, 85, 247, 0.6),
+      inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+#home-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  background: linear-gradient(135deg, #d946ef 0%, #a855f7 50%, #8b5cf6 100%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 50%;
+  color: rgba(168, 85, 247, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.5),
+    0 0 45px rgba(168, 85, 247, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  animation: enhancedPulse 4s infinite;
+  backdrop-filter: blur(15px);
+}
+
+#home-button:hover {
+  transform: translateY(-2px);
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.7);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    0 0 35px rgba(168, 85, 247, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.homelogo-image {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+}
+
+.container {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(20, 20, 40, 0.4);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.container h2 {
+  text-align: center;
+  font-size: 2.2em;
+  color: #f3e8ff;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(217, 70, 239, 0.6);
+}
+
+/* Labels and Inputs */
+label {
+  display: block;
+  margin-top: 24px;
+  font-size: 1em;
+  font-weight: 600;
+  color: #e9d5ff;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(168, 85, 247, 0.6);
+  background: rgba(30, 20, 50, 0.9);
+  color: #f3e8ff;
+  font-size: 0.95em;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+}
+
+input::placeholder {
+  color: #c4b5fd;
+  text-align: center;
+}
+
+#logButton {
+  margin-top: 30px;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #a855f7, #d946ef);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.8);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Table */
+table {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  background: rgba(30, 20, 50, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.95em;
+  color: #f3e8ff;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);
+}
+
+table th,
+table td {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+table th {
+  background: rgba(168, 85, 247, 0.2);
+  color: #f3e8ff;
+}
+
+table td button {
+  margin: 0 6px;
+  padding: 6px 12px;
+  font-size: 0.85em;
+  border-radius: 6px;
+  border: 1px solid #a855f7;
+  background: transparent;
+  color: #a855f7;
+  transition: 0.3s;
+}
+
+table td button:hover {
+  background: #a855f7;
+  color: #ffffff;
+}
+
+/* Chart */
+#studyChart {
+  display: block;
+  margin: 40px auto 0;
+  max-width: 100%;
+}
+
+/* Edit/Delete Button Containers */
+.edit,
+.delete {
+  display: flex;
+  justify-content: center;
+  width: 60px;
+  padding: 5px;
+  margin: 5px;
+  box-shadow: none;
+  position: relative;
+  left: 48px;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

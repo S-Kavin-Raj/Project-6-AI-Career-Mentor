@@ -1,0 +1,175 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Maxis - AI Voice Assistant
+    link(rel="stylesheet", href="voiceassistant.css")
+
+  body
+    button#home-button(onclick="window.location.href='/homepage'")
+      img.homelogo-image(src="homebutton.png")
+    h1 Maxis — Your AI Voice Assistant
+    .assistant-box
+      button#start-btn
+        img(src="mic.jpg")
+      button#stop-btn
+        img(src="micoff.png")
+
+      .waveform#waveform(style="display: none;")
+        .bar
+        .bar
+        .bar
+        .bar
+
+      .output#conversation
+        div
+          strong Maxis:
+          |  Ready when you are.
+
+      .status#status Status: Idle
+
+    script.
+      const startBtn = document.getElementById("start-btn");
+      const stopBtn = document.getElementById("stop-btn");
+      const conversation = document.getElementById("conversation");
+      const status = document.getElementById("status");
+      const waveform = document.getElementById("waveform");
+
+      const OPENROUTER_API_KEY = "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";
+
+      let recognition;
+      let isListening = false;
+      let messages = [
+        { role: "system", content: "You are Neo, a helpful and friendly AI voice assistant. Keep replies short, clear, and helpful." }
+      ];
+
+      function initializeRecognition() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          alert("Speech Recognition is not supported in this browser.");
+          return null;
+        }
+
+        const recog = new SpeechRecognition();
+        recog.lang = "en-US";
+        recog.interimResults = false;
+        recog.continuous = true;
+        return recog;
+      }
+
+      startBtn.onclick = () => {
+        startBtn.style.display = "none";
+        stopBtn.style.display = "flex";
+        if (isListening) return;
+
+        recognition = initializeRecognition();
+        if (!recognition) return;
+
+        isListening = true;
+        waveform.style.display = "flex";
+        status.textContent = "Status: Listening...";
+
+        recognition.onresult = async (event) => {
+          const transcript = event.results[event.resultIndex][0].transcript.trim();
+          status.textContent = "Status: Thinking...";
+          waveform.style.display = "none";
+
+          addMessage(" You", transcript);
+
+          messages.push({ role: "user", content: transcript });
+
+          const response = await getAIResponse(messages);
+          messages.push({ role: "assistant", content: response });
+
+          await typeResponse("Maxis", response);
+
+          speakResponse(response);
+          status.textContent = "Status: Listening...";
+          waveform.style.display = "flex";
+        };
+
+        recognition.onerror = (event) => {
+          status.textContent = "Error: " + event.error;
+          isListening = false;
+          waveform.style.display = "none";
+        };
+
+        recognition.onend = () => {
+          if (isListening) {
+            recognition.start();
+          } else {
+            recognition = null;
+          }
+        };
+
+        recognition.start();
+      };
+
+      stopBtn.onclick = () => {
+        if (recognition && isListening) {
+          recognition.stop();
+          isListening = false;
+          status.textContent = "Status: Stopped.";
+          waveform.style.display = "none";
+          stopBtn.style.display = "none";
+          startBtn.style.display = "flex";
+
+          speechSynthesis.cancel();
+        }
+      };
+
+      async function getAIResponse(messages) {
+        try {
+          const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: "openai/gpt-3.5-turbo",
+              messages: messages
+            })
+          });
+
+          const data = await res.json();
+          return data.choices?.[0]?.message?.content || "Hmm... I didn't catch that.";
+        } catch (error) {
+          return "Something went wrong. Please try again.";
+        }
+      }
+
+      function speakResponse(text) {
+        const utter = new SpeechSynthesisUtterance(text);
+        const voices = speechSynthesis.getVoices();
+        utter.voice = voices.find(v => v.name.includes("Google US") || v.name.includes("Aria")) || voices[0];
+        utter.rate = 1;
+        speechSynthesis.speak(utter);
+      }
+
+      function addMessage(sender, text) {
+        const msg = document.createElement("div");
+        msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+        conversation.appendChild(msg);
+        conversation.scrollTop = conversation.scrollHeight;
+      }
+
+      async function typeResponse(sender, text) {
+        const container = document.createElement("div");
+        container.innerHTML = `<strong>${sender}:</strong> <span class="typing-indicator"></span>`;
+        conversation.appendChild(container);
+        conversation.scrollTop = conversation.scrollHeight;
+
+        await new Promise(res => setTimeout(res, 500));
+
+        let final = '';
+        for (let char of text) {
+          final += char;
+          container.innerHTML = `<strong>${sender}:</strong> ${final}`;
+          await new Promise(res => setTimeout(res, 15));
+          conversation.scrollTop = conversation.scrollHeight;
+        }
+      }
+
+      window.speechSynthesis.onvoiceschanged = () => { };

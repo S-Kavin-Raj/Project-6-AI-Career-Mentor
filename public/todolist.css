@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* AI Career Mentor Inspired Background */
+body {
+  font-family: "Orbitron", sans-serif;
+  background-image: url("background-for-todo.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #f3e8ff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* Animation Keyframes */
+@keyframes holographicShimmer {
+
+  0%,
+  100% {
+    background-position: 0% 0%, 0% 0%, 30% 40%, 70% 60%, 0% 0%;
+    filter: brightness(1) saturate(1);
+  }
+
+  50% {
+    background-position: 100% 100%, -100% -100%, 40% 30%, 60% 70%, 0% 0%;
+    filter: brightness(1.1) saturate(1.2);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes orbFloat {
+
+  0%,
+  100% {
+    background-position: 20% 30%, 80% 70%, 40% 80%, 0 0;
+  }
+
+  33% {
+    background-position: 30% 20%, 70% 80%, 50% 70%, 0 0;
+  }
+
+  66% {
+    background-position: 10% 40%, 90% 60%, 30% 90%, 0 0;
+  }
+}
+
+@keyframes enhancedPulse {
+
+  0%,
+  100% {
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.5),
+      0 0 45px rgba(168, 85, 247, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 12px 35px rgba(0, 0, 0, 0.5),
+      0 0 60px rgba(168, 85, 247, 0.6),
+      inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+#home-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  background: linear-gradient(135deg, #d946ef 0%, #a855f7 50%, #8b5cf6 100%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 50%;
+  color: rgba(168, 85, 247, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.5),
+    0 0 45px rgba(168, 85, 247, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  animation: enhancedPulse 4s infinite;
+  backdrop-filter: blur(15px);
+}
+
+#home-button:hover {
+  transform: translateY(-2px);
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.7);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.5),
+    0 0 35px rgba(168, 85, 247, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.homelogo-image {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(20, 20, 40, 0.8);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(217, 70, 239, 0.2);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #f3e8ff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px rgba(168, 85, 247, 0.8), 0 0 10px rgba(217, 70, 239, 0.6);
+}
+
+.progress-container {
+  background: rgba(30, 20, 50, 0.8);
+  border: 1px solid rgba(168, 85, 247, 0.6);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  backdrop-filter: blur(5px);
+}
+
+#numbers {
+  border: 2px solid #a855f7;
+  padding: 10px;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+  color: #f3e8ff;
+}
+
+#progress {
+  height: 5px;
+  background: linear-gradient(90deg, #a855f7, #d946ef);
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: width 0.3s ease-in-out;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#input-box {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 8px 0 0 8px;
+  border: 1.5px solid #a855f7;
+  background: rgba(40, 30, 60, 0.9);
+  color: #f3e8ff;
+  font-size: 1rem;
+  outline: none;
+  backdrop-filter: blur(5px);
+}
+
+#input-box:focus {
+  border-color: #d946ef;
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.5);
+}
+
+#submit {
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  border: none;
+  padding: 0 20px;
+  border-radius: 0 8px 8px 0;
+  color: #ffffff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+#submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  background: rgba(40, 30, 60, 0.9);
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(168, 85, 247, 0.6);
+  transition: 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+li:hover {
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+  transform: translateY(-2px);
+  background: rgba(50, 35, 70, 0.9);
+  border-color: #d946ef;
+}
+
+li input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  border: 2px solid #a855f7;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.4);
+}
+
+li input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 12px;
+  border: solid #a855f7;
+  border-width: 0 2px 2px 0;
+  top: 2px;
+  left: 6px;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.2s ease;
+}
+
+li input[type="checkbox"]:checked {
+  background-color: rgba(168, 85, 247, 0.2);
+  border-color: #d946ef;
+}
+
+li input[type="checkbox"]:checked::before {
+  transform: rotate(45deg) scale(1);
+  border-color: #d946ef;
+}
+
+li span {
+  flex: 1;
+  color: #f3e8ff;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+button {
+  background: transparent;
+  color: #a855f7;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 8px;
+  border: 1.5px solid #a855f7;
+  padding: 5px;
+  border-radius: 15px;
+  width: 70px;
+  transition: 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+button:hover {
+  background-color: #a855f7;
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+}

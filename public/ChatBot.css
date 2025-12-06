@@ -1,0 +1,163 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: url('background-for-chatbot.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    backdrop-filter: blur(2px);
+}
+
+#home-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 50%, #4b0082 100%);
+    border: 1px solid rgba(255, 20, 147, 0.4);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(255, 20, 147, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    animation: enhancedPulse 4s infinite;
+    backdrop-filter: blur(15px);
+}
+
+#home-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 20, 147, 0.15);
+    border-color: rgba(255, 20, 147, 0.7);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(255, 20, 147, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.homelogo-image {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(255, 20, 147, 0.6));
+}
+
+#container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#title_box h1 {
+    font-size: 2.5rem;
+    background-color: linear-gradient(90deg, #e0aaff, #c77dff);
+    font-weight: bold;
+}
+
+#chatbox {
+    margin-top: 30px;
+    width: 90%;
+    max-width: 600px;
+    background-color: rgba(20, 20, 20, 0.88);
+    border: 2px solid #c77dff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(199, 125, 255, 0.5);
+}
+
+#chatbox h2 {
+    margin-bottom: 10px;
+    color: #e0aaff;
+}
+
+#response {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 5px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 10px;
+    margin: 8px 0;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.user-message {
+    background-color: rgba(36, 36, 36, 0.95);
+    text-align: right;
+    border-left: 4px solid #e0aaff;
+    margin: 5px;
+}
+
+.ai-message {
+    background-color: rgba(40, 40, 40, 0.95);
+    color: #f5f0ff;
+    text-align: left;
+    border-right: 4px solid #c77dff;
+    margin: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    padding: 14px;
+}
+
+#userInput {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    resize: none;
+    height: 80px;
+    background-color: #0a0a0a;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    left: -12px;
+    border: 2px solid #c77dff;
+    font-size: large;
+}
+
+#askButton {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #c77dff, #9d4edd);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#askButton:hover {
+    background: linear-gradient(to right, #9d4edd, #c77dff);
+    transform: scale(1.02);
+}
+
+@media (max-width: 600px) {
+    #title_box h1 {
+        font-size: 1.8rem;
+    }
+
+    #chatbox {
+        padding: 15px;
+    }
+}

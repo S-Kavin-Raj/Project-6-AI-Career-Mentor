@@ -1,0 +1,278 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#home-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 50%, #4b0082 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(255, 255, 255, 0.2),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    animation: enhancedPulse 4s infinite;
+    backdrop-filter: blur(15px);
+}
+
+#home-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.homelogo-image {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-image: url("background-for-notes.jpg");
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Header */
+.navi {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 2.7em;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 2px;
+    cursor: default;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Notes container */
+#bars {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Note card */
+.bar {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(16px);
+    border-radius: 18px;
+    padding: 25px;
+    width: 280px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    transition: 0.3s ease;
+    overflow-wrap: break-word;
+}
+
+.bar:hover {
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.3);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Note title */
+.title {
+    font-size: 1.4em;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 10px;
+    cursor: default;
+    font-weight: 600;
+}
+
+/* Note content */
+.paragraph {
+    margin-top: 10px;
+    color: #e8e8e8;
+    font-size: 0.95em;
+    white-space: pre-wrap;
+}
+
+/* Delete button */
+.delete {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.delete:hover {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    color: #ffffff;
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+}
+
+/* Add new note button */
+.new-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #a855f7, #8b5cf6);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+}
+
+.new-button:hover {
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 12px 35px rgba(168, 85, 247, 0.6);
+    background: linear-gradient(135deg, #9333ea, #7c3aed);
+}
+
+/* Modal background */
+.overlay-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+}
+
+/* Modal */
+.overlay {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    z-index: 2;
+    display: none;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+/* Modal heading */
+.overlay h2 {
+    text-align: center;
+    font-size: 1.7em;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Inputs */
+input,
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 12px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+    resize: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Modal buttons */
+.overlay-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.save-button,
+#cancel-button {
+    width: 42%;
+    height: 45px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    transition: 0.3s;
+}
+
+.save-button {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+#cancel-button {
+    background: linear-gradient(135deg, #a855f7, #c084fc);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+}
+
+.save-button:hover,
+#cancel-button:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+#cancel-button:hover {
+    background: linear-gradient(135deg, #9333ea, #a855f7);
+    box-shadow: 0 8px 25px rgba(147, 51, 234, 0.4);
+    color: #ffffff;
+}

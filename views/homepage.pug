@@ -1,0 +1,112 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title AI Career Mentor
+    link(rel="stylesheet", href="/homepage.css")
+
+  body
+    // Header area
+    form(action="/voiceassistant",method="get") 
+      button.mic-btn(type="submit")
+        img.mic-icon(src="voice.png" alt="Mic Button")
+
+    form(action="/chatbot",method="get") 
+      button.chat-btn(type="submit")
+        img.chat-icon(src="chatbot.png" alt="Chat Button")
+
+    #team-logo
+      img.teamlogo-image(src="hackopsimage.png")
+
+    // Hamburger menu button
+    button#menu-button(onclick="toggleMenu()")
+      img.menulogo-image(src="menubutton.png")
+    
+    // App title
+    
+    .mentor-header AI Career Mentor
+
+    // Voice input fields
+    .mentor-container
+      .mentor-field
+        label.mentor-label(for="mentorSkills") Your Top Skills
+        input.mentor-input#mentorSkills(placeholder="e.g. Python, Communication, Design")
+    
+      .mentor-field
+        label.mentor-label(for="mentorInterests") Your Interests
+        input.mentor-input#mentorInterests(placeholder="e.g. AI, Marketing, Web Development")
+        
+      .mentor-field
+        label.mentor-label(for="mentorGoals") Your Career Goals
+        input.mentor-input#mentorGoals(placeholder="e.g. Become a Data Scientist, Start a business")
+    
+      button.mentor-btn(onclick="getMentorAdvice()") Get My Career Roadmap
+
+      #mentorResult.mentor-result
+        | Your personalized career roadmap will appear here.
+
+    // Hidden side menu
+    #side-menu.hidden
+      form(action="/todolist", method="get")
+        input.mentor-btn(type="submit", value="To-Do List")
+      form(action="/studytime", method="get")
+        input.mentor-btn(type="submit", value="Study Time")
+      form(action="/notes", method="get")
+        input.mentor-btn(type="submit", value="Notes")
+
+    // JavaScript (embedded inline)
+    script.
+      const OPENROUTER_API_KEY = "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";
+
+      function toggleMenu() {
+        const menu = document.getElementById("side-menu");
+        menu.classList.toggle("hidden");
+      }
+
+      async function getMentorAdvice() {
+        const skills = document.getElementById('mentorSkills').value.trim();
+        const interests = document.getElementById('mentorInterests').value.trim();
+        const goals = document.getElementById('mentorGoals').value.trim();
+        const result = document.getElementById('mentorResult');
+
+        if (!skills || !interests || !goals) {
+          result.textContent = 'Please fill in all fields for a personalized suggestion.';
+          return;
+        }
+
+        result.innerHTML = 'Thinking... <span style="font-size:1.2em"></span>';
+
+        try {
+          const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+              "Referer": window.location.href,
+              "X-Title": "AI Career Mentor",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: "deepseek/deepseek-r1:free",
+              messages: [
+                {
+                  role: "user",
+                  content: `Here are my details:\n- Skills: ${skills}\n- Interests: ${interests}\n- Goals: ${goals}\n\nGive me a personalized AI career roadmap based on this.`
+                }
+              ]
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(`API Error: ${response.statusText} (${response.status}). ${errorData.error?.message || 'No additional details.'}`);
+          }
+
+          const data = await response.json();
+          const reply = data.choices[0]?.message?.content || "Sorry, no advice was generated.";
+          result.innerHTML = reply.replace(/\n/g, "<br>");
+        } catch (err) {
+          console.error(err);
+          result.textContent = `Sorry, an error occurred. Please check the console (F12) for details. Error: ${err.message}`;
+        }
+      }

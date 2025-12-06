@@ -1,0 +1,169 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title 📚 Study Time Tracker - HackOps
+    script(src="https://cdn.jsdelivr.net/npm/chart.js")
+    link(rel="stylesheet", href="studytime.css")
+    link(href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap", rel="stylesheet")
+  
+  body
+    button#home-button(onclick="window.location.href='/homepage'")
+      img.homelogo-image(src="homebutton.png")
+    .container
+      h2 Study Time Tracker
+
+      label(for="subject") Subject
+      input#subject(type="text", placeholder="e.g. Math, Science")
+
+      label(for="hours") Hours Studied
+      input#hours(type="number", placeholder="e.g. 2")
+
+      button#logButton(onclick="addEntry()") Log Study Time
+
+      table#studyTable
+      canvas#studyChart(height="200")
+      p#streakInfo
+
+    script.
+      let studyData = JSON.parse(localStorage.getItem("studyData")) || [];
+      let editIndex = -1;
+
+      function formatDate(date) {
+        return new Date(date).toISOString().split("T")[0];
+      }
+
+      function addEntry() {
+        const subject = document.getElementById("subject").value.trim();
+        const hours = parseFloat(document.getElementById("hours").value);
+        const date = editIndex >= 0 ? studyData[editIndex].date : formatDate(new Date());
+
+        if (!subject || isNaN(hours)) return alert("Fill valid subject and hours");
+
+        if (editIndex >= 0) {
+          studyData[editIndex] = { subject, hours, date };
+          editIndex = -1;
+          document.getElementById("logButton").innerText = "Log Study Time";
+        } else {
+          studyData.push({ subject, hours, date });
+        }
+
+        localStorage.setItem("studyData", JSON.stringify(studyData));
+        document.getElementById("subject").value = "";
+        document.getElementById("hours").value = "";
+
+        renderTable();
+        renderChart("week");
+        renderStreak();
+      }
+
+      function renderTable() {
+        const table = document.getElementById("studyTable");
+        if (studyData.length === 0) {
+          table.innerHTML = "<tr><td colspan='4'>No records yet.</td></tr>";
+          return;
+        }
+
+        table.innerHTML = "<tr><th>Subject</th><th>Hours</th><th>Date</th><th>Actions</th></tr>";
+        studyData.forEach((entry, i) => {
+          table.innerHTML += `
+            <tr>
+              <td>${entry.subject}</td>
+              <td>${entry.hours}</td>
+              <td>${entry.date}</td>
+              <td>
+                <button class="edit" onclick="editEntry(${i})">Edit</button>
+                <button class="delete" onclick="deleteEntry(${i})">Delete</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      function editEntry(i) {
+        const entry = studyData[i];
+        document.getElementById("subject").value = entry.subject;
+        document.getElementById("hours").value = entry.hours;
+        editIndex = i;
+        document.getElementById("logButton").innerText = "Update Entry";
+      }
+
+      function deleteEntry(i) {
+        if (confirm("Delete this entry?")) {
+          studyData.splice(i, 1);
+          localStorage.setItem("studyData", JSON.stringify(studyData));
+          renderTable();
+          renderChart("week");
+          renderStreak();
+        }
+      }
+
+      function renderChart(mode = "week") {
+        const now = new Date();
+        const limitDate = new Date(now);
+        if (mode === "week") limitDate.setDate(now.getDate() - 6);
+        else if (mode === "month") limitDate.setDate(now.getDate() - 29);
+
+        const totals = {};
+        studyData
+          .filter(entry => new Date(entry.date) >= limitDate)
+          .forEach(entry => {
+            totals[entry.subject] = (totals[entry.subject] || 0) + entry.hours;
+          });
+
+        const labels = Object.keys(totals);
+        const data = Object.values(totals);
+
+        const ctx = document.getElementById("studyChart").getContext("2d");
+        if (window.studyChart) window.studyChart.destroy();
+
+        window.studyChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: mode === "week" ? "Study Time (Past 7 Days)" : "Study Time (Past 30 Days)",
+                data,
+                backgroundColor: "#3498db",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Hours",
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function renderStreak() {
+        const streakInfo = document.getElementById("streakInfo");
+        const dates = studyData.map((e) => e.date);
+        const today = new Date();
+        let streak = 0;
+
+        for (let i = 0; i < 100; i++) {
+          const d = formatDate(
+            new Date(today.getFullYear(), today.getMonth(), today.getDate() - i)
+          );
+          if (dates.includes(d)) streak++;
+          else break;
+        }
+
+        streakInfo.innerText =
+          streak > 0
+            ? `🔥 Current Study Streak: ${streak} day(s)`
+            : `📅 No active streak. Start studying today!`;
+      }
+
+      renderTable();
+      renderChart("week");
+      renderStreak();

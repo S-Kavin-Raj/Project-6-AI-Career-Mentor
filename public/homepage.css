@@ -1,0 +1,712 @@
+/* ------------------ Base ------------------ */
+body {
+
+    background-image: url("background-for-mainpage.jpg");
+    background-position: center;
+    background-size: cover;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+.mentor-header {
+    width: 700px;
+    box-shadow: 2px 2px 5px black, -2px -2px 5px black;
+    position: fixed;
+}
+
+
+
+/* Ensure no element defaults to white */
+* {
+    background-color: transparent;
+    box-sizing: border-box;
+
+
+}
+
+/* Enhanced floating particles effect with purple/blue theme */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Enhanced breathing light effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center,
+            rgba(139, 0, 255, 0.08) 0%,
+            rgba(75, 0, 130, 0.05) 30%,
+            rgba(59, 130, 246, 0.03) 60%,
+            transparent 80%);
+    animation: breathe 10s infinite ease-in-out alternate;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes gentleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.7;
+    }
+
+    25% {
+        transform: translateY(-12px) translateX(8px);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translateY(-6px) translateX(-5px);
+        opacity: 0.8;
+    }
+
+    75% {
+        transform: translateY(-18px) translateX(12px);
+        opacity: 0.4;
+    }
+}
+
+@keyframes breathe {
+    0% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.15;
+        transform: scale(1.03);
+    }
+}
+
+
+/* ------------------ Logo ------------------ */
+#team-logo,
+.teamlogo-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 50%, #4b0082 100%);
+    border: 1px solid rgba(139, 0, 255, 0.4);
+    border-radius: 50%;
+    color: rgba(139, 0, 255, 0.9);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(139, 0, 255, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+
+/* ------------------ Menu Button ------------------ */
+#menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 50%, #4b0082 100%);
+    border: 1px solid rgba(139, 0, 255, 0.4);
+    border-radius: 50%;
+    color: rgba(139, 0, 255, 0.9);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(139, 0, 255, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    animation: enhancedPulse 4s infinite;
+    backdrop-filter: blur(15px);
+}
+
+#menu-button:hover {
+    transform: translateY(-2px);
+    background: rgba(139, 0, 255, 0.15);
+    border-color: rgba(139, 0, 255, 0.7);
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(139, 0, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.menulogo-image {
+    width: 30px;
+    height: 25px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(139, 0, 255, 0.6));
+}
+
+/* ------------------ Mentor Container ------------------ */
+.mentor-container {
+    background: rgba(10, 5, 20, 0.95);
+    border: 1px solid rgba(139, 0, 255, 0.2);
+    padding: 48px;
+    border-radius: 32px;
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.5),
+        0 0 120px rgba(139, 0, 255, 0.08),
+        0 0 180px rgba(255, 20, 147, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(139, 0, 255, 0.08);
+    backdrop-filter: blur(40px) saturate(1.2);
+    max-width: 700px;
+    width: 95%;
+    margin-top: 140px;
+    color: #ffffff;
+    animation: gentleFadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+}
+
+.mentor-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(139, 0, 255, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(75, 0, 130, 0.03) 0%, transparent 50%),
+        linear-gradient(135deg,
+            rgba(255, 20, 147, 0.02) 0%,
+            rgba(139, 0, 255, 0.025) 50%,
+            rgba(59, 130, 246, 0.02) 100%);
+    border-radius: 32px;
+    pointer-events: none;
+}
+
+.mentor-container::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(135deg,
+            rgba(139, 0, 255, 0.15),
+            rgba(75, 0, 130, 0.12),
+            rgba(255, 20, 147, 0.1),
+            rgba(59, 130, 246, 0.08));
+    border-radius: 33px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.mentor-container:hover::after {
+    opacity: 0.4;
+}
+
+.mentor-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 25%, #4b0082 50%, #1e3a8a 75%, #3b82f6 100%);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    animation: enhancedGradientShift 12s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(139, 0, 255, 0.3));
+}
+
+@keyframes enhancedGradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 12px rgba(255, 20, 147, 0.3));
+    }
+
+    25% {
+        background-position: 100% 0%;
+        filter: drop-shadow(0 0 15px rgba(139, 0, 255, 0.4));
+    }
+
+    50% {
+        background-position: 100% 100%;
+        filter: drop-shadow(0 0 18px rgba(75, 0, 130, 0.4));
+    }
+
+    75% {
+        background-position: 0% 100%;
+        filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+    }
+}
+
+/* ------------------ Form Elements ------------------ */
+.mentor-label {
+    margin-top: 32px;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 12px;
+    text-shadow: 0 0 10px rgba(139, 0, 255, 0.4);
+    letter-spacing: 0.5px;
+}
+
+.mentor-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 1px solid rgba(139, 0, 255, 0.25);
+    background: rgba(15, 8, 25, 0.85);
+    color: #ffffff;
+    border-radius: 16px;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    box-shadow:
+        inset 0 2px 10px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(139, 0, 255, 0.08);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+.mentor-input:focus {
+    border-color: rgba(139, 0, 255, 0.7);
+    box-shadow:
+        inset 0 2px 10px rgba(0, 0, 0, 0.4),
+        0 0 0 3px rgba(139, 0, 255, 0.15),
+        0 0 35px rgba(139, 0, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.mentor-input::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.mentor-btn {
+    width: 100%;
+    padding: 18px 24px;
+    margin-top: 32px;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 35%, #4b0082 70%, #1e3a8a 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 0 35px rgba(139, 0, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mentor-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transition: left 0.6s ease;
+}
+
+.mentor-btn:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(139, 0, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.mentor-btn:hover::before {
+    left: 100%;
+}
+
+.mentor-btn:active {
+    transform: translateY(-1px);
+}
+
+.mentor-result {
+    margin-top: 32px;
+    background: rgba(15, 8, 25, 0.92);
+    border: 1px solid rgba(75, 0, 130, 0.35);
+    padding: 32px;
+    border-left: 4px solid #8b00ff;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.96);
+    font-size: 15px;
+    line-height: 1.8;
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: pre-line;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(75, 0, 130, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    font-weight: 400;
+}
+
+.mentor-result::-webkit-scrollbar {
+    width: 8px;
+}
+
+.mentor-result::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
+
+.mentor-result::-webkit-scrollbar-thumb {
+    background: rgba(139, 0, 255, 0.7);
+    border-radius: 4px;
+}
+
+.mentor-result::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 0, 255, 0.9);
+}
+
+/* ------------------ Mic Button ------------------ */
+.mic-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 50%, #4b0082 100%);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(139, 0, 255, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    animation: enhancedPulse 4s infinite;
+}
+
+.mic-btn::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(135deg, rgba(139, 0, 255, 0.4), rgba(255, 20, 147, 0.3));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mic-btn:hover::before {
+    opacity: 1;
+}
+
+.mic-icon {
+    width: 36px;
+    height: 36px;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(139, 0, 255, 0.6));
+}
+
+.mic-btn:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.6),
+        0 0 65px rgba(139, 0, 255, 0.5),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+.chat-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 32px;
+    bottom: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff1493 0%, #8b00ff 50%, #4b0082 100%);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 45px rgba(139, 0, 255, 0.4),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    animation: enhancedPulse 4s infinite;
+}
+
+.chat-btn::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: linear-gradient(135deg, rgba(139, 0, 255, 0.4), rgba(255, 20, 147, 0.3));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chat-btn:hover::before {
+    opacity: 1;
+}
+
+.chat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(93deg) brightness(103%) contrast(103%) drop-shadow(0 0 8px rgba(139, 0, 255, 0.6));
+}
+
+.chat-btn:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.6),
+        0 0 65px rgba(139, 0, 255, 0.5),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ------------------ Nav Forms ------------------ */
+.nav-forms {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+}
+
+.nav-forms input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #ff1493, #8b00ff, #4b0082);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 15px rgba(139, 0, 255, 0.7);
+}
+
+.nav-forms input[type="submit"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff1493, 0 0 30px #8b00ff;
+}
+
+/* ------------------ Side Menu ------------------ */
+#side-menu {
+    position: fixed;
+    top: 70px;
+    left: 10px;
+    background: rgba(30, 15, 50, 0.9);
+    padding: 12px;
+    margin: 10px;
+    z-index: 100;
+    border-radius: 12px;
+    color: #fff0e6;
+    box-shadow: 0 0 20px rgba(139, 0, 255, 0.5);
+    backdrop-filter: blur(12px);
+}
+
+#side-menu.hidden {
+    display: none;
+}
+
+/* ------------------ Chat ------------------ */
+.chat-container {
+    background: rgba(30, 15, 50, 0.9);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(139, 0, 255, 0.4), 0 0 45px rgba(75, 0, 130, 0.3);
+    max-width: 500px;
+    width: 90%;
+    margin-top: 20px;
+    backdrop-filter: blur(8px);
+}
+
+.chat-history {
+    height: 200px;
+    overflow-y: auto;
+    border-bottom: 1px solid #6a1b9a;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    color: #e1bee7;
+}
+
+.chat-input-area {
+    display: flex;
+}
+
+#userInput {
+    flex-grow: 1;
+    padding: 12px;
+    border: none;
+    background: rgba(50, 30, 80, 0.9);
+    color: #fff0e6;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 1rem;
+    box-shadow: inset 0 0 8px rgba(139, 0, 255, 0.4);
+    backdrop-filter: blur(6px);
+}
+
+#askButton {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #ff1493, #8b00ff);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#askButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff1493, 0 0 30px #8b00ff;
+}
+
+#askButton:disabled {
+    background: #6a1b9a;
+    cursor: not-allowed;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    line-height: 1.4;
+}
+
+.user-message {
+    background: linear-gradient(135deg, #ff1493, #8b00ff);
+    color: white;
+    align-self: flex-end;
+    text-align: right;
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
+}
+
+.ai-message {
+    background: rgba(50, 30, 80, 0.95);
+    color: #fff0e6;
+    align-self: flex-start;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 90%;
+    word-wrap: break-word;
+    white-space: pre-line;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px rgba(75, 0, 130, 0.5);
+}
+
+/* ------------------ Animations ------------------ */
+@keyframes gentleFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes enhancedPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 12px 35px rgba(0, 0, 0, 0.5),
+            0 0 45px rgba(139, 0, 255, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    50% {
+        transform: scale(1.03);
+        box-shadow:
+            0 15px 40px rgba(0, 0, 0, 0.55),
+            0 0 55px rgba(139, 0, 255, 0.35),
+            inset 0 2px 0 rgba(255, 255, 255, 0.35);
+    }
+}
+
+/* Enhanced scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 0, 255, 0.5) rgba(255, 255, 255, 0.05);
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(139, 0, 255, 0.5);
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 0, 255, 0.7);
+}
